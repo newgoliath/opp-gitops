@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: compliance
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.compliance.repoURL }}
+    targetRevision: {{ .Values.compliance.targetRevision }}
+    path: {{ .Values.compliance.path }}
+    helm:
+      values: |
+        operator:
+          {{- if .Values.compliance.startingCSV }}
+          startingCSV: {{ .Values.compliance.startingCSV }}
+          {{- end }}
+          installPlanApproval: Manual
+          {{- if .Values.compliance.config }}
+          {{ .Values.compliance.config }}
+          {{- end }}
+        helper-status-checker:
+          approver: true
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}

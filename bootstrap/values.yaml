@@ -1,0 +1,18 @@
+# Default values for bootstrap.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+compliance:
+  repoURL: https://github.com/rhpds/ocp-cluster-addons.git
+  path: compliance
+  targetRevision: main
+  namespace: openshift-compliance
+  startingCSV: compliance-operator.1.6.1
+  config:
+    nodeSelector:
+      node-role.kubernetes.io/worker: ""
+    #  NOTE: hypershift only
+    # env:
+    # - name: PLATFORM
+    #   value: "HyperShift"
+  channel: "stable"
