@@ -19,7 +19,7 @@ spec:
           installPlanApproval: Manual
           {{- if .Values.compliance.config }}
           config:
-            {{- .Values.compliance.config | toYaml | nindent 10 }}
+            {{- .Values.compliance.config | toYaml | nindent 12 }}
           {{- end }}
         helper-status-checker:
           approver: true
