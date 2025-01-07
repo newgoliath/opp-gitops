@@ -18,7 +18,8 @@ spec:
           {{- end }}
           installPlanApproval: Manual
           {{- if .Values.compliance.config }}
-          {{ .Values.compliance.config }}
+          config: |
+            {{ .Values.compliance.config }}
           {{- end }}
         helper-status-checker:
           approver: true

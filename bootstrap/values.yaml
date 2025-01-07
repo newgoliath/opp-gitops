@@ -8,6 +8,7 @@ compliance:
   targetRevision: compliance
   namespace: openshift-compliance
   startingCSV: compliance-operator.1.6.1
+  channel: "stable"
   config:
     nodeSelector:
       node-role.kubernetes.io/worker: ""
@@ -15,4 +16,3 @@ compliance:
     # env:
     # - name: PLATFORM
     #   value: "HyperShift"
-  channel: "stable"
