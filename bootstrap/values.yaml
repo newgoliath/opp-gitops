@@ -7,7 +7,7 @@ compliance:
   path: compliance
   targetRevision: compliance
   namespace: openshift-compliance
-  startingCSV: compliance-operator.1.6.1
+  startingCSV: compliance-operator.v1.6.1
   channel: "stable"
   config:
     nodeSelector:
