@@ -9,7 +9,7 @@ compliance:
   namespace: openshift-compliance
   startingCSV: compliance-operator.v1.6.1
   channel: "stable"
-  config:
+  configf:
     nodeSelector:
       node-role.kubernetes.io/worker: ""
     #  NOTE: hypershift only
