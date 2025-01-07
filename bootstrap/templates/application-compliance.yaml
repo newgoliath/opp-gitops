@@ -18,8 +18,8 @@ spec:
           {{- end }}
           installPlanApproval: Manual
           {{- if .Values.compliance.config }}
-          config: |
-            {{ .Values.compliance.config }}
+          config:
+            {{- .Values.compliance.config | toYaml | nindent 8 }}
           {{- end }}
         helper-status-checker:
           approver: true
