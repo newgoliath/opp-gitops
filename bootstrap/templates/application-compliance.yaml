@@ -16,7 +16,7 @@ spec:
       values: |
         namespace: openshift-compliance
         operator:
-          installPlanApproval: Manual
+          installPlanApproval: Automatic
           {{- if .Values.compliance.startingCSV }}
           startingCSV: {{ .Values.compliance.startingCSV }}
           {{- end }}
