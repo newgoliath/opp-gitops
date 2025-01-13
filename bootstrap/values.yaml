@@ -5,7 +5,7 @@
 compliance:
   repoURL: https://github.com/rhpds/ocp-cluster-addons.git
   path: compliance
-  targetRevision: compliance
+  targetRevision: main
   namespace: openshift-compliance
   startingCSV: compliance-operator.v1.6.1
   channel: "stable"
