@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: compliance-operator
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.compliance.operator.repoURL }}
+    targetRevision: {{ .Values.compliance.operator.targetRevision }}
+    path: {{ .Values.compliance.operator.path }}
+    helm:
+      values: |
+        namespace: openshift-compliance
+        operator:
+          installPlanApproval: Automatic
+          {{- if .Values.compliance.operator.startingCSV }}
+          startingCSV: {{ .Values.compliance.operator.startingCSV }}
+          {{- end }}
+          {{- if .Values.compliance.operator.config }}
+          config:
+            {{- .Values.compliance.operator.config | toYaml | nindent 12 }}
+          {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}

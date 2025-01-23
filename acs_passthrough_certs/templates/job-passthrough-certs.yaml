@@ -1,0 +1,60 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: acs-certs-job
+  namespace: {{ .Values.stackrox_namespace }}
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: acs-certs-job
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: acs-certs-job
+  namespace: {{ .Values.stackrox_namespace }}
+---
+# templates/gateway-patch.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: acs-certs-job
+  namespace: {{ .Values.stackrox_namespace }}
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      serviceAccountName: acs-certs-job
+      restartPolicy: Never
+      containers:
+      - name: quay-acs-certs-script
+        image: quay.io/agnosticd/ee-multicloud:v0.1.2
+        command:
+        - /bin/sh
+        - -c
+        - |
+          # set up acs passthrough routes with Central's CA
+
+          oc apply -f - <<EOF
+          apiVersion: route.openshift.io/v1
+          kind: Route
+          metadata:
+            name: central
+            namespace: {{ .Values.stackrox_namespace }}
+          spec:
+            tls:
+              destinationCACertificate: |
+          $(oc extract secret/central-tls -n {{ .Values.stackrox_namespace }} --keys ca.pem --to=- | sed 's/^/      /' )
+          EOF

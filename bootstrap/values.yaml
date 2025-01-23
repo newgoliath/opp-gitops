@@ -3,16 +3,29 @@
 # Declare variables to be passed into your templates.
 
 compliance:
-  repoURL: https://github.com/rhpds/ocp-cluster-addons.git
-  path: compliance
+  resources:
+    repoURL: https://github.com/rhpds/ocp-cluster-addons.git
+    path: compliance_resources
+    targetRevision: main
+    scan:
+      enable: true
+  operator:
+    repoURL: https://github.com/rhpds/ocp-cluster-addons.git
+    path: compliance
+    targetRevision: main
+    namespace: openshift-compliance
+    startingCSV: compliance-operator.v1.6.1
+    channel: "stable"
+    config:
+      nodeSelector:
+        node-role.kubernetes.io/worker: ""
+      #  NOTE: hypershift only
+      # env:
+      # - name: PLATFORM
+      #   value: "HyperShift"
+
+acs_passthrough_certs:
+  repoURL: https://github.com/newgoliath/opp-gitops.git
+  path: acs_passthrough_certs
   targetRevision: main
-  namespace: openshift-compliance
-  startingCSV: compliance-operator.v1.6.1
-  channel: "stable"
-  config:
-    nodeSelector:
-      node-role.kubernetes.io/worker: ""
-    #  NOTE: hypershift only
-    # env:
-    # - name: PLATFORM
-    #   value: "HyperShift"
+  stackrox_namespace: stackrox

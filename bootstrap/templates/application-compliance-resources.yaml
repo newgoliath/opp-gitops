@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: compliance-resources
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  source:
+    repoURL: {{ .Values.compliance.resources.repoURL }}
+    targetRevision: {{ .Values.compliance.resources.targetRevision }}
+    path: {{ .Values.compliance.resources.path }}
+    helm:
+      values: |
+        namespace: openshift-compliance
+  destination:
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
