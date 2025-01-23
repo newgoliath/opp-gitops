@@ -1,4 +1,4 @@
-== Set up Certs for Passthrough Routes in RHACS
+== Set up Certs for Reencrypt Routes in RHACS
 
 jira issue with background:  https://issues.redhat.com/browse/RFE-5812
 

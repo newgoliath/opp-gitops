@@ -24,8 +24,8 @@ compliance:
       # - name: PLATFORM
       #   value: "HyperShift"
 
-acs_passthrough_certs:
+acs_reencrypt_certs:
   repoURL: https://github.com/newgoliath/opp-gitops.git
-  path: acs_passthrough_certs
+  path: acs_reencrypt_certs
   targetRevision: main
   stackrox_namespace: stackrox

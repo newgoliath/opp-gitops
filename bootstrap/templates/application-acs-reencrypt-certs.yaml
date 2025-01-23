@@ -2,16 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: acs-passthrough-certs
+  name: acs-reencrypt-certs
   namespace: openshift-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   source:
-    repoURL: {{ .Values.acs_passthrough_certs.repoURL }}
-    targetRevision: {{ .Values.acs_passthrough_certs.targetRevision }}
-    path: {{ .Values.acs_passthrough_certs.path }}
+    repoURL: {{ .Values.acs_reencrypt_certs.repoURL }}
+    targetRevision: {{ .Values.acs_reencrypt_certs.targetRevision }}
+    path: {{ .Values.acs_reencrypt_certs.path }}
     helm:
       values: |
         use: defaults

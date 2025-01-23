@@ -1,6 +1,6 @@
 apiVersion: v2
-name: acs-passthrough-certs
-description: Job to update Central Route for passthrough TLS to Central
+name: acs-reencrypt-certs
+description: Job to update Central Route for reencrypt TLS to Central
 
 # A chart can be either an 'application' or a 'library' chart.
 #
