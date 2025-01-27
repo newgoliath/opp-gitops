@@ -4,7 +4,7 @@
 
 compliance:
   resources:
-    repoURL: https://github.com/rhpds/ocp-cluster-addons.git
+    repoURL: https://github.com/newgoliath/opp-gitops.git
     path: compliance_resources
     targetRevision: main
     scan:
