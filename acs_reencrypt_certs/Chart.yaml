@@ -1,5 +1,5 @@
 apiVersion: v2
-name: acs-reencrypt-certs
+name: acs_reencrypt_certs
 description: Job to update Central Route for reencrypt TLS to Central
 
 # A chart can be either an 'application' or a 'library' chart.
