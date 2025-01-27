@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: acs-certs-job
-  namespace: {{ .Values.stackrox_namespace }}
+  namespace: {{ .Values.acs_reencrypt_certs.stackrox_namespace }}
   annotations:
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
@@ -22,14 +22,14 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: acs-certs-job
-  namespace: {{ .Values.stackrox_namespace }}
+  namespace: {{ .Values.acs_reencrypt_certs.stackrox_namespace }}
 ---
 # templates/gateway-patch.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: acs-certs-job
-  namespace: {{ .Values.stackrox_namespace }}
+  namespace: {{ .Values.acs_reencrypt_certs.stackrox_namespace }}
   annotations:
     argocd.argoproj.io/hook: PostSync
     # argocd.argoproj.io/hook-delete-policy: HookSucceeded
@@ -52,10 +52,10 @@ spec:
           kind: Route
           metadata:
             name: central
-            namespace: {{ .Values.stackrox_namespace }}
+            namespace: {{ .Values.acs_reencrypt_certs.stackrox_namespace }}
           spec:
             tls:
               termination: reencrypt
               destinationCACertificate: |
-          $(oc extract secret/central-tls -n {{ .Values.stackrox_namespace }} --keys ca.pem --to=- | sed 's/^/      /' )
+          $(oc extract secret/central-tls -n {{ .Values.acs_reencrypt_certs.stackrox_namespace }} --keys ca.pem --to=- | sed 's/^/      /' )
           EOF

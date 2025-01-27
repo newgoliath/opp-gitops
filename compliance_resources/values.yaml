@@ -1,0 +1,11 @@
+# Default values for bootstrap.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+compliance:
+  resources:
+    repoURL: https://github.com/newgoliath/opp-gitops.git
+    path: compliance_resources
+    targetRevision: main
+    scan:
+      enable: true

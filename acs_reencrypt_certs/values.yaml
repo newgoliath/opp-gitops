@@ -1,1 +1,2 @@
-stackrox_namespace: stackrox
+acs_reencrypt_certs:
+  stackrox_namespace: stackrox
