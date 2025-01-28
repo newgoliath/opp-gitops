@@ -4,17 +4,11 @@ kind: ServiceAccount
 metadata:
   name: acs-certs-job
   namespace: {{ .Values.acs_reencrypt_certs.stackrox_namespace }}
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: acs-certs-job
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -30,9 +24,6 @@ kind: Job
 metadata:
   name: acs-certs-job
   namespace: {{ .Values.acs_reencrypt_certs.stackrox_namespace }}
-  annotations:
-    argocd.argoproj.io/hook: PostSync
-    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
 spec:
   template:
     spec:
