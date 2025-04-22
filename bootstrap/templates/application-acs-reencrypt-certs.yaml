@@ -16,6 +16,7 @@ spec:
       values: |
         use: defaults
   destination:
+    namespace: openshift-gitops
     server: https://kubernetes.default.svc
   syncPolicy:
     automated: {}
